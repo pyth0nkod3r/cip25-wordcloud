@@ -151,7 +151,7 @@ class UserInterface:
                 return False
             else:
                 self.show_error(
-                    "Invalid response. Please type 'yes', 'y' or 'no', 'n'."
+                    "Invalid response. Please type (yes[y]/no[n]):"
                 )
 
     def ask_customize(self) -> bool:
@@ -160,7 +160,7 @@ class UserInterface:
         """
         while True:
             response = (
-                input("\nDo you want to customize the word cloud settings? (yes/no): ")
+                input("\nDo you want to customize the word cloud settings? (yes[y]/no[n]): ")
                 .lower()
                 .strip()
             )
@@ -170,7 +170,7 @@ class UserInterface:
                 return False
             else:
                 self.show_error(
-                    "Invalid response. Please type 'yes' ,' y ' or 'no', 'n'."
+                    "Invalid response. Please type (yes[y]/no[n]):"
                 )
 
     def get_user_preferences(self) -> Dict[str, Any]:
@@ -227,6 +227,29 @@ class UserInterface:
         ).strip()
         if background_color:
             preferences["background_color"] = background_color
+
+        # Mask image path (optional)
+        available_masks = self.config.get_predefined_mask_names()
+        while True:
+            print("\nChoose a word cloud shape:")
+            for i, mask_name in enumerate(available_masks):
+                print(f"{i+1}. {mask_name.capitalize()}")
+
+            shape_choice = input(f"Enter your choice (1-{len(available_masks)}): ").strip()
+            
+            try:
+                choice_idx = int(shape_choice) - 1
+                if 0 <= choice_idx <= len(available_masks):
+                    # Predefined mask chosen
+                    preferences["mask_image_path"] = self.config.get_predefined_mask_path(available_masks[choice_idx])
+                    break
+                elif choice_idx == len(available_masks) + 1:
+                    preferences["mask_image_path"] = None
+                    break
+                else:
+                    self.show_error("Invalid choice. Please enter a valid number.")
+            except ValueError:
+                self.show_error("Invalid input. Please enter a number.")
 
         return preferences
 

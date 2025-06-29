@@ -115,6 +115,12 @@ class Config:
         "monochrome": ["#2C3E50", "#34495E", "#7F8C8D", "#95A5A6", "#BDC3C7"],
     }
 
+    PREDEFINED_MASKS = {
+        'rectangle': None, # Default shape, no mask needed
+        'circle': os.path.join(os.path.dirname(__file__), 'shapes', 'circle_mask.png'),
+        'octagon': os.path.join(os.path.dirname(__file__), 'shapes', 'octagon_mask.png'),
+    }
+
     # Sample text files content
     SAMPLE_FILES = {
         "shakespeare.txt": """
@@ -204,6 +210,14 @@ class Config:
     @classmethod
     def get_color_scheme_colors(cls, scheme_name):
         return cls.COLOR_SCHEMES.get(scheme_name, None)
+    
+    @classmethod
+    def get_predefined_mask_names(cls):
+        return list(cls.PREDEFINED_MASKS.keys())
+
+    @classmethod
+    def get_predefined_mask_path(cls, mask_name):
+        return cls.PREDEFINED_MASKS.get(mask_name, None)
 
     @classmethod
     def is_stop_word(cls, word):

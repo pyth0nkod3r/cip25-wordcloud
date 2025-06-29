@@ -1,4 +1,4 @@
-# Word Cloud Generator
+# Miracle's Word Cloud Generator
 
 ## Overview
 
@@ -6,12 +6,12 @@ This project provides a robust and modular Python application for generating wor
 
 ## Features
 
-- **Flexible Text Input**: Generate word clouds from direct text input, pre-defined sample files, or custom text files.
-- **Advanced Text Processing**: Includes comprehensive text cleaning (lowercase conversion, punctuation removal, number removal, URL/email stripping, whitespace normalization) and intelligent stop word filtering.
+- **Flexible Text Input**: Generate word clouds from direct text input or pre-defined sample files.
+- **Advanced Text Processing**: Includes comprehensive text cleaning (lowercase conversion, punctuation removal, number removal, whitespace normalization) and intelligent stop word filtering.
 - **Customizable Word Clouds**: Control the maximum number of words displayed, choose from a variety of color schemes, and set custom background colors.
 - **Shaped Word Clouds**: Utilize mask images to generate word clouds in custom shapes.
 - **Modular Design**: Built with an object-oriented approach, separating functionalities into distinct modules for better organization and reusability.
-- **Informative Output**: Provides detailed information about the generated word cloud, including total words displayed and image size.
+- **Informative Output**: Provides detailed information about the generated word cloud, including total words displayed and number of occurences.
 - **Easy Saving**: Save generated word clouds as image files (PNG, JPG) for later use.
 
 ## Modular Structure
@@ -44,8 +44,8 @@ To get started with the Word Cloud Generator, follow these simple steps:
 1.  **Clone the Repository (Optional)**:
     If you are getting the code from a repository, you can clone it using Git:
     ```bash
-    git clone <repository_url>
-    cd <repository_directory>
+    git clone git@github.com:pyth0nkod3r/cip25-wordcloud.git
+    cd cip25-wordcloud
     ```
 
 2.  **Download the Files**:
@@ -84,8 +84,7 @@ Let's get started!
 ============================================================
 1. Enter text directly
 2. Choose from sample files
-3. Provide a custom file path
-4. Exit
+3. Exit
 ============================================================
 ```
 
@@ -93,11 +92,9 @@ Follow the on-screen prompts to generate your word cloud:
 
 1.  **Enter text directly**: Choose this option to type or paste text directly into the console. Press Enter twice to signal the end of your input.
 
-2.  **Choose from sample files**: The application comes with pre-defined sample text files (e.g., Shakespeare, Technology, Nature, Literature). You can select one from the list to generate a word cloud.
+2.  **Choose from sample files**: The application comes with pre-defined sample text files (e.g., Shakespeare, Random, Test, Technology, Nature, Literature). You can select one from the list to generate a word cloud.
 
-3.  **Provide a custom file path**: If you have your own text file, select this option and provide the full path to your `.txt` file. The application will read its content for word cloud generation.
-
-4.  **Exit**: Terminate the program.
+3.  **Exit**: Terminate the program.
 
 After selecting your text source, you will be asked if you want to customize the word cloud settings. If you choose 'yes', you can specify:
 

@@ -17,7 +17,6 @@ class WordCloudVisualizer:
     """
     
     def __init__(self):
-        """Initialize the word cloud visualizer with configuration."""
         self.config = Config()
         self.width = self.config.DEFAULT_WIDTH
         self.height = self.config.DEFAULT_HEIGHT
@@ -52,7 +51,9 @@ class WordCloudVisualizer:
         if mask_image_path:
             try:
                 from PIL import Image
+                print(f"Attempting to load mask image from: {mask_image_path}")
                 mask_image = Image.open(mask_image_path)
+                print(f"Mask shape: {mask.shape}, dtype: {mask.dtype}, unique values: {np.unique(mask)}")
                 mask = np.array(mask_image)
                 print(f"Using custom shape from {mask_image_path}")
             except Exception as e:

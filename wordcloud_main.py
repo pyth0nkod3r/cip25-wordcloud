@@ -146,8 +146,14 @@ class WordCloudApp:
             self.ui.show_word_count_info(word_frequencies)
 
             # Step 3: Create and display word cloud
+            background_color = preferences.get("background_color", self.config.DEFAULT_BACKGROUND_COLOR)
+            mask_image_path = preferences.get("mask_image_path")
+            max_words = preferences.get("max_words", self.config.DEFAULT_MAX_WORDS)
+            color_scheme = preferences.get("color_scheme", self.config.DEFAULT_COLOR_SCHEME)
+            
             wordcloud = self.visualizer.create_word_cloud(
-                word_frequencies, color_scheme=color_scheme
+                word_frequencies, color_scheme=color_scheme,     background_color=background_color,
+                mask_image_path=mask_image_path
             )
 
             if wordcloud:
