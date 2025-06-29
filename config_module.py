@@ -19,7 +19,7 @@ class Config:
     DEFAULT_WIDTH = 800
     DEFAULT_HEIGHT = 600
     DEFAULT_COLOR_SCHEME = "random"
-    DEFAULT_BACKGROUND_COLOR = "white"
+    DEFAULT_BACKGROUND_COLOR = "black"
 
     # File settings
     SAMPLE_DIRECTORY = "samples"
@@ -191,6 +191,7 @@ class Config:
         "min_font_size": 10,
         "max_font_size": 100,
         "prefer_horizontal": 0.7,
+        "margin": 1,
         "random_state": 42,
         "collocations": False,
         "background_color": DEFAULT_BACKGROUND_COLOR,

@@ -250,6 +250,17 @@ class UserInterface:
                     self.show_error("Invalid choice. Please enter a valid number.")
             except ValueError:
                 self.show_error("Invalid input. Please enter a number.")
+                
+        while True:
+            fill_canvas_input = input("\nDo you want to try and fill the entire canvas? (yes[y]/no[n]): ").lower().strip()
+            if fill_canvas_input in ["yes", "y"]:
+                preferences["fill_canvas"] = True
+                break
+            elif fill_canvas_input in ["no", "n"]:
+                preferences["fill_canvas"] = False
+                break
+            else:
+                self.show_error("Invalid response. Please type (yes[y]/no[n]):")
 
         return preferences
 

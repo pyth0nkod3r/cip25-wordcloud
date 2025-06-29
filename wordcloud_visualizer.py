@@ -39,7 +39,7 @@ class WordCloudVisualizer:
         return color_func
     
     def create_word_cloud(self, word_count: Dict[str, int], color_scheme: str = 'random', 
-                          background_color: str = 'white', mask_image_path: Optional[str] = None) -> Optional[WordCloud]:
+                          background_color: str = 'white', mask_image_path: Optional[str] = None,max_words: int = 50, fill_canvas: bool = False) -> Optional[WordCloud]:
         """
         Create the word cloud visualization using the wordcloud library.
         """
@@ -47,43 +47,58 @@ class WordCloudVisualizer:
             print("No words to display!")
             return None
         
-        mask = None
+        # mask = None
         if mask_image_path:
             try:
                 from PIL import Image
-                print(f"Attempting to load mask image from: {mask_image_path}")
-                mask_image = Image.open(mask_image_path)
-                print(f"Mask shape: {mask.shape}, dtype: {mask.dtype}, unique values: {np.unique(mask)}")
+                mask_image = Image.open(mask_image_path).convert("L")  # Grayscale
+                # Binarize: everything above 128 becomes 255 (white), else 0 (black)
+                mask_image = mask_image.point(lambda x: 255 if x > 128 else 0, mode='L')
                 mask = np.array(mask_image)
                 print(f"Using custom shape from {mask_image_path}")
+                # if mask is not None:
+                    # print(f"Mask shape: {mask.shape}, dtype: {mask.dtype}, unique values: {np.unique(mask)}")
             except Exception as e:
                 print(f"Could not load mask image: {e}")
                 print("Using default rectangular shape")
+                mask = None
         
         print(f"Creating word cloud with {len(word_count)} unique words...")
         
         settings = self.wordcloud_settings.copy()
+        
+        if fill_canvas:
+            settings['relative_scaling'] = 1
+            settings['min_font_size'] = 5
+            settings['max_font_size'] = None  # Let it scale up
+            settings['margin'] = 0
+            settings['prefer_horizontal'] = 0.5
+            max_words = max(max_words, 200)  # Ensure more words if possible
+            
         settings.pop('background_color', None)
-
+        settings.pop('max_words', None)
         wordcloud = WordCloud(
             width=self.width,
             height=self.height,
             background_color=background_color,
             mask=mask,
-            max_words=len(word_count),  # Use all available words
+            max_words=max_words,
             color_func=self.get_color_function(color_scheme),
             **settings
         ).generate_from_frequencies(word_count)
         
         # Create the plot
-        plt.figure(figsize=(self.width/100, self.height/100))
+        plt.figure(figsize=(self.width/100, self.height/100), facecolor=background_color)
         plt.imshow(wordcloud, interpolation='bilinear')
         plt.axis('off')  # Remove axes for cleaner look
         plt.title('Word Cloud', fontsize=16, pad=20)
         plt.tight_layout(pad=0)
+        plt.gca().set_facecolor(background_color)  # Set axes background
         
         # Show the plot
         plt.show()
+        
+        plt.savefig('wordcloud.png', bbox_inches='tight', pad_inches=0, transparent=True)
         
         return wordcloud
     
